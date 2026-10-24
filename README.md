@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/handwriting-dark.svg">
+    <img src="assets/handwriting-light.svg" alt="Handwritten: print(&quot;O KIVE AA SINGH??!&quot;)" width="460">
+  </picture>
+</p>
+
 <h1 align="center">Mehardeep Singh</h1>
 
 <p align="center">
@@ -20,6 +27,11 @@ I'm a Computer Engineering student (B.E., expected 2028) who builds machine-lear
 #### [Brain tumour MRI classification](https://github.com/MehardeepS30/brain-tumor-mri-classification) &nbsp;·&nbsp; [v1.0.0 release](https://github.com/MehardeepS30/brain-tumor-mri-classification/releases/tag/v1.0.0)
 
 <sub>`Python` `PyTorch` `EfficientNet` `Grad-CAM` `scikit-learn` `pytest` `GitHub Actions`</sub>
+
+<p align="center">
+  <a href="https://github.com/MehardeepS30/brain-tumor-mri-classification#11-grad-cam"><img src="assets/gradcam-strip.webp" alt="Grad-CAM overlays from EfficientNet-B0 on four correctly classified tumours: meningioma, glioma, glioma and pituitary" width="100%"></a><br>
+  <sub>EfficientNet-B0 Grad-CAM on correctly classified meningioma, glioma, glioma and pituitary cases. Derived from the <a href="https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset">Brain Tumor MRI Dataset</a> (CC BY 4.0).</sub>
+</p>
 
 A four-class classifier (glioma, meningioma, pituitary tumour, no tumour) that compares a CNN trained from scratch with a fine-tuned, ImageNet-pretrained EfficientNet-B0 under the same data, preprocessing and model-selection rule, so the comparison is fair.
 
@@ -60,6 +72,13 @@ Predicts the remaining useful life (RUL) of turbofan engines from multivariate s
 
 ### Tech
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+    <img src="assets/stack-light.svg" alt="Core stack: Python, C++, PyTorch, scikit-learn, NumPy, pandas, Pydantic, MCP, GraphQL, Git, GitHub Actions, pytest" width="560">
+  </picture>
+</p>
+
 | | Used in my projects and coursework |
 |---|---|
 | **Languages** | Python · C++ · SQL |
@@ -70,6 +89,15 @@ Predicts the remaining useful life (RUL) of turbofan engines from multivariate s
 
 **Also worked with:** C · JavaScript · Node.js · Express · MongoDB · XGBoost · Hugging Face · Streamlit · Jupyter<br>
 **Currently learning:** retrieval-augmented generation (RAG) with FAISS · LangGraph
+
+<br>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MehardeepS30/MehardeepS30/output/pacman-contribution-graph-dark.svg">
+    <img src="https://raw.githubusercontent.com/MehardeepS30/MehardeepS30/output/pacman-contribution-graph.svg" alt="Pac-Man eating through the MehardeepS30 contribution graph" width="100%">
+  </picture>
+</p>
 
 <!--
 ### Contact
