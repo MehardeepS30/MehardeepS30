@@ -1,10 +1,33 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { ArcadeRenderer } from 'pacman-contribution-graph';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+
+const PADDLE_SWEET_SPOT = 0.15;
+const PADDLE_SPEED = 3;
+
+const loadArcadeRenderer = async (game) => {
+	if (game !== 'breakout') return (await import('pacman-contribution-graph')).ArcadeRenderer;
+	const bundle = fileURLToPath(import.meta.resolve('pacman-contribution-graph'));
+	const zone = +(3.5 * PADDLE_SWEET_SPOT).toFixed(4);
+	const patches = [
+		['n=Math.max(-1,Math.min(1,(o.x-e)/3.5))', `n=Math.max(-1,Math.min(1,(o.x-e)/${zone}))`],
+		['h=s-Math.max(-65,Math.min(65,d))/65*3.5', `h=s-Math.max(-65,Math.min(65,d))/65*${zone}`],
+		['a.x<u-2?a.x+=2:a.x>u+2?a.x-=2:a.x=u', `a.x<u-${PADDLE_SPEED}?a.x+=${PADDLE_SPEED}:a.x>u+${PADDLE_SPEED}?a.x-=${PADDLE_SPEED}:a.x=u`]
+	];
+	let code = readFileSync(bundle, 'utf8');
+	for (const [from, to] of patches) {
+		if (code.split(from).length !== 2) throw new Error(`Breakout paddle patch no longer matches the library: ${from}`);
+		code = code.replace(from, to);
+	}
+	const patched = bundle.replace(/\.js$/, '.centre-paddle.mjs');
+	writeFileSync(patched, code);
+	return (await import(pathToFileURL(patched).href)).ArcadeRenderer;
+};
 
 const username = process.env.LEETCODE_USERNAME;
 const game = process.env.ARCADE_GAME || 'breakout';
 const outDir = process.env.OUT_DIR || 'dist';
 if (!username) throw new Error('LEETCODE_USERNAME is not set');
+const ArcadeRenderer = await loadArcadeRenderer(game);
 
 const fetchCalendar = async () => {
 	const query = 'query ($username: String!) { matchedUser(username: $username) { userCalendar { submissionCalendar } } }';
@@ -87,7 +110,7 @@ const render = (calendarResponse, gameTheme) => {
 };
 
 const calendar = process.env.LEETCODE_CALENDAR_FILE
-	? JSON.parse((await import('node:fs')).readFileSync(process.env.LEETCODE_CALENDAR_FILE, 'utf8'))
+	? JSON.parse(readFileSync(process.env.LEETCODE_CALENDAR_FILE, 'utf8'))
 	: await fetchCalendar();
 const response = toGithubCalendar(calendar);
 mkdirSync(outDir, { recursive: true });
