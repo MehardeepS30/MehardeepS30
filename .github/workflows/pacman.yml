@@ -1,4 +1,4 @@
-name: Pac-Man contribution graph
+name: Contribution games
 
 on:
   schedule:
@@ -17,11 +17,33 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Generate Pac-Man SVGs
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Generate Pac-Man SVGs from GitHub contributions
         uses: abozanona/pacman-contribution-graph@7332e1de7903ab780c3692a4127a59cc13872daa # v5.3.2
         with:
           github_user_name: ${{ github.repository_owner }}
           games: pacman
+
+      - name: Generate Breakout SVGs from LeetCode submissions
+        id: leetcode
+        continue-on-error: true
+        env:
+          LEETCODE_USERNAME: MannuKid
+          ARCADE_GAME: breakout
+          OUT_DIR: dist
+        run: |
+          npm install --no-save --no-audit --no-fund pacman-contribution-graph@5.3.1
+          node scripts/leetcode-arcade.mjs
+
+      - name: Keep previous LeetCode SVGs if LeetCode was unreachable
+        if: steps.leetcode.outcome == 'failure'
+        run: |
+          echo "::warning::LeetCode calendar could not be fetched; reusing the last published Breakout SVGs."
+          for f in leetcode-breakout.svg leetcode-breakout-dark.svg; do
+            curl -fsSL "https://raw.githubusercontent.com/${{ github.repository }}/output/$f" -o "dist/$f" || true
+          done
 
       - name: Push SVGs to the output branch
         uses: crazy-max/ghaction-github-pages@1d6ee9b181a81033a16bd707a1401afa978daab4 # v5.0.0
