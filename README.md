@@ -90,6 +90,25 @@ Predicts the remaining useful life (RUL) of turbofan engines from multivariate s
 **Also worked with:** C · JavaScript · Node.js · Express · MongoDB · XGBoost · Hugging Face · Streamlit · Jupyter<br>
 **Currently learning:** retrieval-augmented generation (RAG) with FAISS · LangGraph
 
+### LeetCode
+
+<p align="center">
+  <a href="https://leetcode.com/u/MannuKid/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://leetcard.jacoblin.cool/MannuKid?theme=dark&font=Inter&radius=10">
+      <img src="https://leetcard.jacoblin.cool/MannuKid?theme=light&font=Inter&radius=10" alt="LeetCode stats for MannuKid: problems solved by difficulty and global rank" width="460">
+    </picture>
+  </a>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MehardeepS30/MehardeepS30/output/leetcode-breakout-dark.svg">
+    <img src="https://raw.githubusercontent.com/MehardeepS30/MehardeepS30/output/leetcode-breakout.svg" alt="Breakout played on the MannuKid LeetCode submission calendar" width="100%">
+  </picture>
+  <br><sub>Breakout, played on my LeetCode submission calendar</sub>
+</p>
+
 <br>
 
 <p align="center">
@@ -97,6 +116,7 @@ Predicts the remaining useful life (RUL) of turbofan engines from multivariate s
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MehardeepS30/MehardeepS30/output/pacman-contribution-graph-dark.svg">
     <img src="https://raw.githubusercontent.com/MehardeepS30/MehardeepS30/output/pacman-contribution-graph.svg" alt="Pac-Man eating through the MehardeepS30 contribution graph" width="100%">
   </picture>
+  <br><sub>Pac-Man, played on my GitHub contributions</sub>
 </p>
 
 <!--
