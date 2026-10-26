@@ -1,24 +1,22 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const PADDLE_SWEET_SPOT = 0.15;
-const PADDLE_SPEED = 3;
-
 const loadArcadeRenderer = async (game) => {
 	if (game !== 'breakout') return (await import('pacman-contribution-graph')).ArcadeRenderer;
 	const bundle = fileURLToPath(import.meta.resolve('pacman-contribution-graph'));
-	const zone = +(3.5 * PADDLE_SWEET_SPOT).toFixed(4);
 	const patches = [
-		['n=Math.max(-1,Math.min(1,(o.x-e)/3.5))', `n=Math.max(-1,Math.min(1,(o.x-e)/${zone}))`],
-		['h=s-Math.max(-65,Math.min(65,d))/65*3.5', `h=s-Math.max(-65,Math.min(65,d))/65*${zone}`],
-		['a.x<u-2?a.x+=2:a.x>u+2?a.x-=2:a.x=u', `a.x<u-${PADDLE_SPEED}?a.x+=${PADDLE_SPEED}:a.x>u+${PADDLE_SPEED}?a.x-=${PADDLE_SPEED}:a.x=u`]
+		[
+			'const e=r+3.5,n=Math.max(-1,Math.min(1,(o.x-e)/3.5)),i=Math.hypot(o.dx,o.dy),a=65*n*(Math.PI/180);o.dx=i*Math.sin(a),o.dy=-i*Math.cos(a),',
+			'const e=r+3.5;o.dy=-Math.abs(o.dy),'
+		],
+		['if(o.dy>0&&t.targetBrick){', 'if(!1){']
 	];
 	let code = readFileSync(bundle, 'utf8');
 	for (const [from, to] of patches) {
-		if (code.split(from).length !== 2) throw new Error(`Breakout paddle patch no longer matches the library: ${from}`);
+		if (code.split(from).length !== 2) throw new Error(`Breakout physics patch no longer matches the library: ${from}`);
 		code = code.replace(from, to);
 	}
-	const patched = bundle.replace(/\.js$/, '.centre-paddle.mjs');
+	const patched = bundle.replace(/\.js$/, '.real-physics.mjs');
 	writeFileSync(patched, code);
 	return (await import(pathToFileURL(patched).href)).ArcadeRenderer;
 };
